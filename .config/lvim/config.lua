@@ -13,25 +13,38 @@
 
 
 
+-- lvim.builtin.alpha.dashboard.section.header.val = {
+-- 	"                    ████████                  ",
+-- 	"                ████░░░░░░░░████              ",
+-- 	"            ████░░░░░░░░░░░░░░░░████          ",
+-- 	"        ████░░░░░░░░░░░░░░░░░░░░░░░░████      ",
+-- 	"        ██░░████░░░░░░░░░░░░░░░░████  ██      ",
+-- 	"        ██░░░░░░████░░░░░░░░████░░  ░░██      ",
+-- 	"        ██░░░░░░░░░░████████░░░░  ░░░░██      ",
+-- 	"        ██░░░░░░  ░░░░░░██░░░░░░░░░░░░██      ",
+-- 	"        ██░░░░  ░░░░░░░░██░░░░░░░░░░░░██      ",
+-- 	"        ██░░  ░░░░░░░░░░██░░░░░░  ░░░░██      ",
+-- 	"        ██░░░░░░░░░░░░  ██░░░░  ░░░░░░██      ",
+-- 	"        ██░░░░░░░░░░  ░░██░░  ░░░░░░░░██      ",
+-- 	"        ████░░░░░░  ░░░░██░░░░░░░░░░████      ",
+-- 	"            ████░░░░░░░░██░░░░░░████          ",
+-- 	"                ████░░░░██░░████              ",
+-- 	"                    ████████                  ",
+-- 	"                                              ",
+-- }
+
+
 lvim.builtin.alpha.dashboard.section.header.val = {
-	"                    ████████                  ",
-	"                ████░░░░░░░░████              ",
-	"            ████░░░░░░░░░░░░░░░░████          ",
-	"        ████░░░░░░░░░░░░░░░░░░░░░░░░████      ",
-	"        ██░░████░░░░░░░░░░░░░░░░████  ██      ",
-	"        ██░░░░░░████░░░░░░░░████░░  ░░██      ",
-	"        ██░░░░░░░░░░████████░░░░  ░░░░██      ",
-	"        ██░░░░░░  ░░░░░░██░░░░░░░░░░░░██      ",
-	"        ██░░░░  ░░░░░░░░██░░░░░░░░░░░░██      ",
-	"        ██░░  ░░░░░░░░░░██░░░░░░  ░░░░██      ",
-	"        ██░░░░░░░░░░░░  ██░░░░  ░░░░░░██      ",
-	"        ██░░░░░░░░░░  ░░██░░  ░░░░░░░░██      ",
-	"        ████░░░░░░  ░░░░██░░░░░░░░░░████      ",
-	"            ████░░░░░░░░██░░░░░░████          ",
-	"                ████░░░░██░░████              ",
-	"                    ████████                  ",
-	"                                              ",
+" ██████╗ ███████╗ ██████╗  █████╗    ██████╗ ███████╗██╗   ██╗",
+"██╔═══██╗██╔════╝██╔════╝ ██╔══██╗   ██╔══██╗██╔════╝██║   ██║",
+"██║   ██║███████╗██║  ███╗███████║   ██║  ██║█████╗  ██║   ██║",
+"██║   ██║╚════██║██║   ██║██╔══██║   ██║  ██║██╔══╝  ╚██╗ ██╔╝",
+"╚██████╔╝███████║╚██████╔╝██║  ██║██╗██████╔╝███████╗ ╚████╔╝",
+" ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝╚═════╝ ╚══════╝  ╚═══╝",
 }
+
+
+
 --------------------------------------------------------------------------------
 --- Head: My / Option
 --
@@ -42,6 +55,7 @@ vim.opt.tabstop = 4
 vim.opt.wrap = true
 --vim.opt.scrolloff = 5
 --vim.opt.sidescrolloff = 15
+vim.opt.relativenumber = true  -- 開啟相對行號
 
 vim.cmd [[
 " ## For Leave
@@ -100,6 +114,8 @@ lvim.colorscheme = "tokyonight"
 --lvim.colorscheme = "gruvbox-material"
 
 lvim.transparent_window = true
+
+
 --
 --- Tail: My / ColorScheme
 --------------------------------------------------------------------------------
@@ -133,8 +149,6 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 -- vim.keymap.del("n", "<C-Up>")
 -- override a default keymapping
 -- lvim.keys.normal_mode["<C-q>"] = ":q<cr>" -- or vim.keymap.set("n", "<C-q>", ":q<cr>" )
-
-
 
 
 --------------------------------------------------------------------------------
@@ -337,6 +351,10 @@ lvim.builtin.treesitter.highlight.enabled = true
 
 --- React plugin
 
+-- markdown-preview hotkey
+vim.api.nvim_create_user_command("MDP", "MarkdownPreviewToggle", {})
+
+
 
 
 local lspconfig = require("lspconfig")
@@ -356,7 +374,7 @@ lspconfig.html.setup({
 
 
 
-
+lvim.builtin.cmp.active = true
 lvim.builtin.cmp.formatting = {
   format = function(entry, vim_item)
     -- 為不同類型的補全項目設置圖標（可選）
@@ -391,20 +409,88 @@ lvim.builtin.cmp.formatting = {
     return vim_item
   end,
 }
-
--- 確保 html-snippet 支援 tsx 和 jsx
+-- 自定義補全源（如 LSP、緩存、文件路徑等）
 lvim.builtin.cmp.sources = {
-  { name = "nvim_lsp" },
-  { name = "buffer" },
-  { name = "path" },
-  { name = "luasnip" },
-  { name = "html" }, -- 添加 html 支援
+  { name = "nvim_lsp" },         -- LSP
+  { name = "buffer" },           -- 當前文件
+  { name = "path" },             -- 文件路徑
+  { name = "luasnip" },          -- 代碼片段
 }
 
+-- 如果需要 Tailwind CSS 的補全，可以添加
+table.insert(lvim.builtin.cmp.sources, { name = "tailwindcss" })
+
+-- 自定義補全鍵位
+local cmp = require("cmp")
+lvim.builtin.cmp.mapping = {
+  ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+  ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+  ["<CR>"] = cmp.mapping.confirm({ select = true }), -- 確認補全
+  ["<C-Space>"] = cmp.mapping.complete(),           -- 顯示補全選單
+}
 --- Head: My / Plugin
 --
 
 lvim.plugins = {
+	-- Discord Presence
+	{
+    "andweeb/presence.nvim",
+    config = function()
+      require("presence").setup({
+        neovim_image_text = "LunarVim on macOS",
+        main_image = "file",
+		enable_line_number = true,
+        editing_text = "Editing %s",
+        file_explorer_text = "Browsing %s",
+        workspace_text = "Working on %s",
+        client_text = "Using LunarVim",
+      })
+    end
+  },
+	--markdown-preview
+	{
+        "iamcco/markdown-preview.nvim",
+        build = "cd app && npm install",
+        ft = { "markdown" },
+        config = function()
+            vim.g.mkdp_auto_start = 1
+        end,
+    },
+	-- 補全
+	{
+		"windwp/nvim-ts-autotag",
+		config = function()
+		  require("nvim-ts-autotag").setup({
+			filetypes = {
+			  "html", "javascript", "typescript", "javascriptreact", "typescriptreact", "vue", "svelte", "xml",
+			},
+		  })
+		end,
+	},
+	-- 滾動平滑
+	{
+	  "karb94/neoscroll.nvim",
+	  event = "WinScrolled",
+	  config = function()
+		require("neoscroll").setup({
+		  -- 預設配置
+		  easing_function = "quadratic", -- 滾動平滑曲線
+		  hide_cursor = false,          -- 滾動時是否隱藏游標
+		})
+
+		-- 設定鍵位
+		local t = {}
+		t["<C-u>"] = { "scroll", { "-vim.wo.scroll", "true", "100" } }
+		t["<C-d>"] = { "scroll", { "vim.wo.scroll", "true", "100" } }
+		t["<C-b>"] = { "scroll", { "-vim.api.nvim_win_get_height(0)", "true", "100" } }
+		t["<C-f>"] = { "scroll", { "vim.api.nvim_win_get_height(0)", "true", "100" } }
+		t["<C-y>"] = { "scroll", { "-0.10", "false", "50" } }
+		t["<C-e>"] = { "scroll", { "0.10", "false", "50" } }
+		t["<j>"] = { "scroll", { "0.10", "true", "50" } }
+		t["<k>"] = { "scroll", { "-0.10", "true", "50" } }
+		require("neoscroll.config").set_mappings(t)
+	  end,
+	},
 	{
 	  "karb94/neoscroll.nvim",
 	  event = "WinScrolled",
@@ -424,6 +510,7 @@ lvim.plugins = {
 			})
 	  end
 	},
+	-- 通知 and 酷酷的 cmdline block
 	{
 		"folke/noice.nvim",
 		enabled = ENABLE_NOICE,
@@ -521,7 +608,6 @@ lvim.plugins = {
 	-- https://github.com/ellisonleao/gruvbox.nvim
 	{ 'ellisonleao/gruvbox.nvim' }
 }
-
 
 
 --
