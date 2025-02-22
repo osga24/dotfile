@@ -113,13 +113,15 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-# 配置
+# alias
 alias nv=nvim
 alias lv=lvim
 alias vi=lvim
 
 alias py=python3
 alias ta=tmux attach
+
+
 #hotkey
 bindkey "^H" backward-char
 bindkey "^L" forward-char
