@@ -35,12 +35,12 @@
 
 
 lvim.builtin.alpha.dashboard.section.header.val = {
-" ██████╗ ███████╗ ██████╗  █████╗    ██████╗ ███████╗██╗   ██╗",
-"██╔═══██╗██╔════╝██╔════╝ ██╔══██╗   ██╔══██╗██╔════╝██║   ██║",
-"██║   ██║███████╗██║  ███╗███████║   ██║  ██║█████╗  ██║   ██║",
-"██║   ██║╚════██║██║   ██║██╔══██║   ██║  ██║██╔══╝  ╚██╗ ██╔╝",
-"╚██████╔╝███████║╚██████╔╝██║  ██║██╗██████╔╝███████╗ ╚████╔╝",
-" ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝╚═════╝ ╚══════╝  ╚═══╝",
+	" ██████╗ ███████╗ ██████╗  █████╗    ██████╗ ███████╗██╗   ██╗",
+	"██╔═══██╗██╔════╝██╔════╝ ██╔══██╗   ██╔══██╗██╔════╝██║   ██║",
+	"██║   ██║███████╗██║  ███╗███████║   ██║  ██║█████╗  ██║   ██║",
+	"██║   ██║╚════██║██║   ██║██╔══██║   ██║  ██║██╔══╝  ╚██╗ ██╔╝",
+	"╚██████╔╝███████║╚██████╔╝██║  ██║██╗██████╔╝███████╗ ╚████╔╝",
+	" ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝╚═════╝ ╚══════╝  ╚═══╝",
 }
 
 
@@ -55,7 +55,7 @@ vim.opt.tabstop = 4
 vim.opt.wrap = true
 --vim.opt.scrolloff = 5
 --vim.opt.sidescrolloff = 15
-vim.opt.relativenumber = true  -- 開啟相對行號
+vim.opt.relativenumber = true -- 開啟相對行號
 
 vim.cmd [[
 " ## For Leave
@@ -182,6 +182,8 @@ lvim.keys.normal_mode['<Bslash>c'] = ':%bdelete!<CR>'
 -- ## Windows vsp
 lvim.keys.normal_mode["<leader>sv"] = ":vsplit<CR>"
 
+-- ## noh
+lvim.keys.normal_mode['<leader>n'] = ":noh<CR>"
 --
 --- Tail: My / Keybind
 --------------------------------------------------------------------------------
@@ -360,61 +362,61 @@ vim.api.nvim_create_user_command("MDP", "MarkdownPreviewToggle", {})
 local lspconfig = require("lspconfig")
 
 lspconfig.html.setup({
-  filetypes = { "html", "typescriptreact", "javascriptreact" }, -- 添加 tsx/jsx 支援
-  settings = {
-    html = {
-      suggest = {
-        html5 = true,
-        angular1 = false,
-        ionic = false,
-      },
-    },
-  },
+	filetypes = { "html", "typescriptreact", "javascriptreact" }, -- 添加 tsx/jsx 支援
+	settings = {
+		html = {
+			suggest = {
+				html5 = true,
+				angular1 = false,
+				ionic = false,
+			},
+		},
+	},
 })
 
 
 
 lvim.builtin.cmp.active = true
 lvim.builtin.cmp.formatting = {
-  format = function(entry, vim_item)
-    -- 為不同類型的補全項目設置圖標（可選）
-    local kind_icons = {
-      Text = "",
-      Method = "󰆧",
-      Function = "󰊕",
-      Constructor = "",
-      Field = "󰜢",
-      Variable = "󰀫",
-      Class = "󰠱",
-      Interface = "",
-      Module = "",
-      Property = "󰜢",
-      Unit = "",
-      Value = "󰎠",
-      Enum = "",
-      Keyword = "󰌋",
-      Snippet = "",
-      Color = "󰏘",
-      File = "󰈙",
-      Reference = "",
-      Folder = "󰉋",
-      EnumMember = "",
-      Constant = "󰏿",
-      Struct = "󰙅",
-      Event = "",
-      Operator = "󰆕",
-      TypeParameter = "",
-    }
-    vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
-    return vim_item
-  end,
+	format = function(entry, vim_item)
+		-- 為不同類型的補全項目設置圖標（可選）
+		local kind_icons = {
+			Text = "",
+			Method = "󰆧",
+			Function = "󰊕",
+			Constructor = "",
+			Field = "󰜢",
+			Variable = "󰀫",
+			Class = "󰠱",
+			Interface = "",
+			Module = "",
+			Property = "󰜢",
+			Unit = "",
+			Value = "󰎠",
+			Enum = "",
+			Keyword = "󰌋",
+			Snippet = "",
+			Color = "󰏘",
+			File = "󰈙",
+			Reference = "",
+			Folder = "󰉋",
+			EnumMember = "",
+			Constant = "󰏿",
+			Struct = "󰙅",
+			Event = "",
+			Operator = "󰆕",
+			TypeParameter = "",
+		}
+		vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
+		return vim_item
+	end,
 }
 -- 自定義補全源（如 LSP、緩存、文件路徑等）
 lvim.builtin.cmp.sources = {
-  { name = "nvim_lsp" },         -- LSP
-  { name = "buffer" },           -- 當前文件
-  { name = "path" },             -- 文件路徑
-  { name = "luasnip" },          -- 代碼片段
+	{ name = "nvim_lsp" }, -- LSP
+	{ name = "buffer" }, -- 當前文件
+	{ name = "path" },  -- 文件路徑
+	{ name = "luasnip" }, -- 代碼片段
 }
 
 -- 如果需要 Tailwind CSS 的補全，可以添加
@@ -423,10 +425,10 @@ table.insert(lvim.builtin.cmp.sources, { name = "tailwindcss" })
 -- 自定義補全鍵位
 local cmp = require("cmp")
 lvim.builtin.cmp.mapping = {
-  ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-  ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-  ["<CR>"] = cmp.mapping.confirm({ select = true }), -- 確認補全
-  ["<C-Space>"] = cmp.mapping.complete(),           -- 顯示補全選單
+	["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+	["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+	["<CR>"] = cmp.mapping.confirm({ select = true }), -- 確認補全
+	["<C-Space>"] = cmp.mapping.complete(),         -- 顯示補全選單
 }
 --- Head: My / Plugin
 --
@@ -434,81 +436,81 @@ lvim.builtin.cmp.mapping = {
 lvim.plugins = {
 	-- Discord Presence
 	{
-    "andweeb/presence.nvim",
-    config = function()
-      require("presence").setup({
-        neovim_image_text = "LunarVim on macOS",
-        main_image = "file",
-		enable_line_number = true,
-        editing_text = "Editing %s",
-        file_explorer_text = "Browsing %s",
-        workspace_text = "Working on %s",
-        client_text = "Using LunarVim",
-      })
-    end
-  },
+		"andweeb/presence.nvim",
+		config = function()
+			require("presence").setup({
+				neovim_image_text = "LunarVim on macOS",
+				main_image = "file",
+				enable_line_number = true,
+				editing_text = "Editing %s",
+				file_explorer_text = "Browsing %s",
+				workspace_text = "Working on %s",
+				client_text = "Using LunarVim",
+			})
+		end
+	},
 	--markdown-preview
 	{
-        "iamcco/markdown-preview.nvim",
-        build = "cd app && npm install",
-        ft = { "markdown" },
-        config = function()
-            vim.g.mkdp_auto_start = 1
-        end,
-    },
+		"iamcco/markdown-preview.nvim",
+		build = "cd app && npm install",
+		ft = { "markdown" },
+		config = function()
+			vim.g.mkdp_auto_start = 1
+		end,
+	},
 	-- 補全
 	{
 		"windwp/nvim-ts-autotag",
 		config = function()
-		  require("nvim-ts-autotag").setup({
-			filetypes = {
-			  "html", "javascript", "typescript", "javascriptreact", "typescriptreact", "vue", "svelte", "xml",
-			},
-		  })
+			require("nvim-ts-autotag").setup({
+				filetypes = {
+					"html", "javascript", "typescript", "javascriptreact", "typescriptreact", "vue", "svelte", "xml",
+				},
+			})
 		end,
 	},
 	-- 滾動平滑
 	{
-	  "karb94/neoscroll.nvim",
-	  event = "WinScrolled",
-	  config = function()
-		require("neoscroll").setup({
-		  -- 預設配置
-		  easing_function = "quadratic", -- 滾動平滑曲線
-		  hide_cursor = false,          -- 滾動時是否隱藏游標
-		})
+		"karb94/neoscroll.nvim",
+		event = "WinScrolled",
+		config = function()
+			require("neoscroll").setup({
+				-- 預設配置
+				easing_function = "quadratic", -- 滾動平滑曲線
+				hide_cursor = false, -- 滾動時是否隱藏游標
+			})
 
-		-- 設定鍵位
-		local t = {}
-		t["<C-u>"] = { "scroll", { "-vim.wo.scroll", "true", "100" } }
-		t["<C-d>"] = { "scroll", { "vim.wo.scroll", "true", "100" } }
-		t["<C-b>"] = { "scroll", { "-vim.api.nvim_win_get_height(0)", "true", "100" } }
-		t["<C-f>"] = { "scroll", { "vim.api.nvim_win_get_height(0)", "true", "100" } }
-		t["<C-y>"] = { "scroll", { "-0.10", "false", "50" } }
-		t["<C-e>"] = { "scroll", { "0.10", "false", "50" } }
-		t["<j>"] = { "scroll", { "0.10", "true", "50" } }
-		t["<k>"] = { "scroll", { "-0.10", "true", "50" } }
-		require("neoscroll.config").set_mappings(t)
-	  end,
+			-- 設定鍵位
+			local t = {}
+			t["<C-u>"] = { "scroll", { "-vim.wo.scroll", "true", "100" } }
+			t["<C-d>"] = { "scroll", { "vim.wo.scroll", "true", "100" } }
+			t["<C-b>"] = { "scroll", { "-vim.api.nvim_win_get_height(0)", "true", "100" } }
+			t["<C-f>"] = { "scroll", { "vim.api.nvim_win_get_height(0)", "true", "100" } }
+			t["<C-y>"] = { "scroll", { "-0.10", "false", "50" } }
+			t["<C-e>"] = { "scroll", { "0.10", "false", "50" } }
+			t["<j>"] = { "scroll", { "0.10", "true", "50" } }
+			t["<k>"] = { "scroll", { "-0.10", "true", "50" } }
+			require("neoscroll.config").set_mappings(t)
+		end,
 	},
 	{
-	  "karb94/neoscroll.nvim",
-	  event = "WinScrolled",
-	  config = function()
-	  require('neoscroll').setup({
-			-- All these keys will be mapped to their corresponding default scrolling animation
-			mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
-			'<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
-			hide_cursor = true,          -- Hide cursor while scrolling
-			stop_eof = true,             -- Stop at <EOF> when scrolling downwards
-			use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
-			respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-			cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-			easing_function = nil,        -- Default easing function
-			pre_hook = nil,              -- Function to run before the scrolling animation starts
-			post_hook = nil,              -- Function to run after the scrolling animation ends
+		"karb94/neoscroll.nvim",
+		event = "WinScrolled",
+		config = function()
+			require('neoscroll').setup({
+				-- All these keys will be mapped to their corresponding default scrolling animation
+				mappings = { '<C-u>', '<C-d>', '<C-b>', '<C-f>',
+					'<C-y>', '<C-e>', 'zt', 'zz', 'zb' },
+				hide_cursor = true, -- Hide cursor while scrolling
+				stop_eof = true, -- Stop at <EOF> when scrolling downwards
+				use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
+				respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+				cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
+				easing_function = nil, -- Default easing function
+				pre_hook = nil,  -- Function to run before the scrolling animation starts
+				post_hook = nil, -- Function to run after the scrolling animation ends
 			})
-	  end
+		end
 	},
 	-- 通知 and 酷酷的 cmdline block
 	{
@@ -551,10 +553,10 @@ lvim.plugins = {
 	{
 		"ntpeters/vim-better-whitespace",
 		config = function()
-					vim.g.better_whitespace_enabled=1
-					vim.g.strip_whitespace_on_save=1
-					vim.g.strip_whitespace_confirm=0
-					vim.g.better_whitespace_ctermcolor=132
+			vim.g.better_whitespace_enabled = 1
+			vim.g.strip_whitespace_on_save = 1
+			vim.g.strip_whitespace_confirm = 0
+			vim.g.better_whitespace_ctermcolor = 132
 		end
 	},
 	-- ## ColorScheme
