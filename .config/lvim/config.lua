@@ -102,7 +102,7 @@ let g:better_whitespace_ctermcolor=132
 --
 
 -- lvim.colorscheme = "lvim"
-lvim.colorscheme = "tokyonight"
+-- lvim.colorscheme = "tokyonight"
 --lvim.colorscheme = "dracula"
 --lvim.colorscheme = "monokai"
 --lvim.colorscheme = "onedark"
@@ -520,6 +520,11 @@ lvim.plugins = {
 		event = { "BufRead", "BufNewFile" },
 		dependencies = { "rcarriga/nvim-notify", "MunifTanjim/nui.nvim" },
 		config = function()
+			-- 修正 nvim-notify 的背景顏色，避免 NotifyBackground 無背景
+			require("notify").setup({
+				background_colour = "#1e1e2e", -- 你可以更改這個顏色
+			})
+
 			require("noice").setup({
 				lsp = {
 					progress = {
@@ -545,6 +550,9 @@ lvim.plugins = {
 					checker = false,
 				},
 			})
+
+			-- 設置 NotifyBackground 高亮，確保背景顏色正確
+			vim.cmd [[ hi NotifyBackground guibg=#1e1e2e ]]
 		end,
 	},
 
