@@ -28,19 +28,6 @@ keymap("n", "<Bslash>z", ":bdelete!<CR>", opts)
 keymap("n", "<Bslash>x", ":%bdelete<CR>", opts)
 keymap("n", "<Bslash>c", ":%bdelete!<CR>", opts)
 
--- 🧭 Normal mode 安全 scroll
-keymap("n", "<C-d>", function()
-  if vim.bo.filetype ~= "alpha" then
-    vim.cmd("normal! <C-d>")
-  end
-end, opts)
-
-keymap("n", "<C-u>", function()
-  if vim.bo.filetype ~= "alpha" then
-    vim.cmd("normal! <C-u>")
-  end
-end, opts)
-
 -- 🧠 命令列快捷鍵
 vim.cmd([[
   cnoremap <C-y> <Up>
@@ -55,6 +42,5 @@ keymap("i", "<S-PageDown>", "<Esc>:m+<CR>i", opts)
 
 -- ⏯️ 切換 list 顯示
 keymap("n", "<Bslash>a", ":set list!<CR>", opts)
-
 -- 📋 快速複製選取內容到系統剪貼簿
 keymap("v", "<S-Tab>", '"+y', opts)
